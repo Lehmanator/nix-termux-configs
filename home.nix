@@ -35,25 +35,6 @@
   ];
   news.display = "show";
   manual.manpages.enable = true;
-  programs.git = {
-    enable = true;
-    package = pkgs.gitFull;
-    userEmail = "github@samlehman.dev";
-    userName = "Sam Lehman";
-    lfs.enable = true;
-    difftastic.enable = true;
-    aliases = {
-      a = "add";
-      cm = "commit -m";
-      ch = "checkout";
-      cl = "clone";
-      f = "fetch";
-      l = "log";
-      p = "push";
-      rb = "rebase";
-      s = "status";
-    };
-  };
   programs.helix = {
     enable = true;
     defaultEditor = true;
@@ -81,7 +62,50 @@
   programs.fd.enable = true;
   programs.fzf.enable = true;
   programs.gallery-dl.enable = true;
-  programs.gh.enable = true;
+  programs.gpg = {
+    enable = true;
+    homedir = "${config.xdg.dataHome}/gnupg";
+  };
+  programs.git = {
+    enable = true;
+    package = pkgs.gitFull;
+    userEmail = "github@samlehman.dev";
+    userName = "Sam Lehman";
+    lfs.enable = true;
+    difftastic.enable = true;
+    aliases = {
+      a = "add";
+      cm = "commit -m";
+      ch = "checkout";
+      cl = "clone";
+      f = "fetch";
+      l = "log";
+      p = "push";
+      rb = "rebase";
+      s = "status";
+    };
+  };
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper = {
+      enable = true;
+      hosts = ["https://github.com" "https://gist.github.com"];
+    };
+    extensions = with pkgs; [gh-eco];
+    settings = {
+      git_protocol = "ssh";
+      prompt = "enabled";
+      editor = "hx";
+      aliases = {
+        co = "pr checkout";
+        pv = "pr view";
+      };
+    };
+  };
+  programs.gh-dash = {
+    enable = true;
+    settings = {};
+  };
   programs.home-manager.enable = true;
   programs.htop.enable = true;
   programs.jq.enable = true;
@@ -110,6 +134,20 @@
       lal = "${ll} -a";
       n = "nom";
       o = "open";
+    };
+  };
+  programs.ssh = {
+    enable = true;
+    addKeysToAgent = "yes";
+    forwardAgent = false;
+    matchBlocks = {
+      "github.com" = {
+        hostname = "github.com";
+        user = "git";
+        identitiesOnly = true;
+        identityFile = ["~/.ssh/id_ed25519"];
+        extraOptions.VisualHostKey = "no";
+      };
     };
   };
 }
