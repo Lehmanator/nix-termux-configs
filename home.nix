@@ -31,6 +31,7 @@
     zellij
     zsh
     uutils-coreutils-noprefix
+    which
   ];
   news.display = "show";
   manual.manpages.enable = true;
