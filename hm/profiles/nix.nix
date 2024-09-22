@@ -19,7 +19,7 @@
     # ];
     # registry = {};
     settings = {
-      use-sandbox = true;
+      # use-sandbox = true;
       show-trace = true;
     };
   };
