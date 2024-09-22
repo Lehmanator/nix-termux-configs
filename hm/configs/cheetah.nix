@@ -1,27 +1,9 @@
-{ inputs, self
-, config, lib, pkgs
-, ...
-}:
+{ inputs, ... }:
+{ config, lib, pkgs, ... }:
 {
-  imports = with inputs; [
-    sops-nix.homeManagerModules.sops
-    #self+/nod/profiles/aliases.nix
-    #self+/nod/profiles/ffmpeg.nix
-    self+/nod/profiles/nix.nix
-    #self+/nod/profiles/nixpkgs.nix
-    #self+/nod/profiles/packages.nix
-    self+/nod/profiles/git.nix
-    self+/nod/profiles/helix.nix
-    self+/nod/profiles/nushell.nix
-    # self+/nod/profiles/rust.nix
-    self+/nod/profiles/ssh.nix
-    self+/nod/profiles/xdg.nix
-    self+/nod/profiles/zsh.nix
-  ];
-  
   home = {
+    username = "sam";
     stateVersion = "23.11";
-    # username = "sam";
     sessionPath = [
       "$HOME/.local/bin"
     ];
@@ -55,11 +37,11 @@
   news.display = "show";
   manual.manpages.enable = true;
 
-  xdg.configFile."nixpkgs/config.nix".source = self+/nixpkgs-config.nix;
-  nixpkgs = {
-    config = import self+/nixpkgs-config.nix;
-    overlays = [];
-  };
+  xdg.configFile."nixpkgs/config.nix".source = (inputs.self + /nixpkgs-config.nix);
+  # nixpkgs = {
+  #   config = import (inputs.self + /nixpkgs-config.nix);
+  #   overlays = [];
+  # };
   
   programs.atuin.enable = true;
   programs.bat = {

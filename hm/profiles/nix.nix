@@ -1,4 +1,4 @@
-{ inputs, rootPath, ... }:
+{ inputs, ... }:
 { config, lib, pkgs, ... }:
 {
   nix = {
@@ -8,9 +8,9 @@
       automatic = true;
       frequency = "weekly";
       # options = "--max-freed $((64 * 1024**3))";
-      persistent = true;
+      # persistent = true;  # 24.11
     };
-    keepOldNixPath = true;
+    # keepOldNixPath = true;  # 24.11
     # nixPath = [
     #   "$HOME/.nix-defexpr/channels"
     #   "home-manager-config=$HOME/.config/nix-on-droid/home.nix"

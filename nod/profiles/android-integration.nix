@@ -1,4 +1,5 @@
-{ inputs, config, lib, pkgs, ... }:
+{ inputs, name, ... }:
+{ config, lib, pkgs, ... }:
 {
   android-integration = {
     am.enable = true;

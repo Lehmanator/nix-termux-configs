@@ -1,10 +1,11 @@
-{ pkgs, config, ...}:
+{ inputs, ... }:
+{ config, lib, pkgs, ...}:
 {
   # for Nix-on-Droid
-  nixpkgs.config = import ../../nixpkgs-config.nix;
+  # nixpkgs.config = import (inputs.self + /nixpkgs-config.nix);
 
   # for Home Manager
-  home-manager.config.nixpkgs.config = import ../../nixpkgs-config.nix;
+  # home-manager.config.nixpkgs.config = import (inputs.self + /nixpkgs-config.nix);
   # -or-
   # home-manager.config = { pkgs, ... }: {
   #   # for Home Manager

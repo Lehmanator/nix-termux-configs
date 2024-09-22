@@ -1,4 +1,4 @@
-{ inputs, rootPath, ... }:
+{ inputs, ... }:
 { config, lib, pkgs, ... }:
 {
   home.preferXdgDirectories = true;

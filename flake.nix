@@ -25,56 +25,62 @@
     };
   };
 
-  outputs = { self, haumea, nixpkgs, home-manager, lix-module, nix-on-droid, sops-nix, ... }@inputs: {
-    homeProfiles = haumea.lib.load {
-      src = ./hm/profiles;
-      inputs = {
-        inherit inputs;
-        rootPath = ./.;
-      };
+  outputs = { self, haumea, nixpkgs, home-manager, lix-module, nix-on-droid, sops-nix, ... }@inputs:
+  let
+    # set nixpkgs instance, it is recommended to apply `nix-on-droid.overlays.default`
+    pkgs = import nixpkgs {
+      system = "aarch64-linux";
+      overlays = [ nix-on-droid.overlays.default ];
+      config = import (self + /nixpkgs-config.nix);
     };
-    homeConfigurations = {
-      cheetah = home-manager.lib.homeManagerConfiguration {
-        modules = [
-          sops-nix.homeManagerModules.sops
-          ./hm/configs/cheetah.nix
-          ./hm/users/sam.nix
-          ./hm/profiles
-        ];
-        extraSpecialArgs = {
-          rootPath = ./.;
-          user = "sam";
-          inherit inputs self;
-        };
-      };
-    };
-    nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
-      modules = [
-        lix-module.nixosModules.default
-        sops-nix.nixosModules.default
-        ./nod/configs/cheetah.nix
-        ./nod/profiles
-        # { nix.registry.nixpkgs.flake = nixpkgs; }
-        # or import source out-of-tree modules like:
-        # flake.nixOnDroidModules.module
-      ];
 
-      # list of extra special args for Nix-on-Droid modules
-      extraSpecialArgs = {
-        rootPath = ./.;
-        user = "sam";
-        inherit inputs self;
-      };
+    loadHomeConfigs = nixpkgs.lib.mapAttrs (name: cfg: home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      extraSpecialArgs = { inherit inputs; user = "sam"; };
+      modules = [ { home.homeDirectory = "/data/data/com.termux.nix/files/home"; } cfg ];
+    });
 
-      # set nixpkgs instance, it is recommended to apply `nix-on-droid.overlays.default`
-      pkgs = import nixpkgs {
-        system = "aarch64-linux";
-        overlays = [ nix-on-droid.overlays.default ];
-      };
-
-      # set path to home-manager flake
+    loadNodConfigs = nixpkgs.lib.mapAttrs (name: cfg: nix-on-droid.lib.nixOnDroidConfiguration {
+      inherit pkgs;
       home-manager-path = home-manager.outPath;
-    };
+      extraSpecialArgs = { inherit inputs name; user="sam"; };
+      modules = (nixpkgs.lib.mapAttrsToList (pn: pv: pv) self.nixOnDroidProfiles) ++ [
+        cfg
+        # lix-module.nixosModules.default
+        # sops-nix.nixosModules.default
+        # { home-manager.config = self.homeConfigurations.${name}.config; }
+      ];
+    });
+  in
+  {
+    inherit self;
+    homeConfigurations = loadHomeConfigs self.homeSuites;
+    homeSuites         = haumea.lib.load { src=./hm/configs;   inputs={inherit inputs;}; };
+    homeProfiles       = haumea.lib.load { src=./hm/profiles;  inputs={inherit inputs;}; };
+    nixOnDroidConfigurations = loadNodConfigs self.nixOnDroidSuites;
+    nixOnDroidSuites   = haumea.lib.load { src=./nod/configs;  inputs={inherit inputs;}; };
+    nixOnDroidProfiles = haumea.lib.load { src=./nod/profiles; inputs={inherit inputs;}; };
+    # nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
+    #   inherit pkgs;
+    #   modules = [
+    #     lix-module.nixosModules.default
+    #     sops-nix.nixosModules.default
+    #     ./nod/configs/cheetah.nix
+    #     # { nix.registry.nixpkgs.flake = nixpkgs; }
+    #     # or import source out-of-tree modules like:
+    #     # flake.nixOnDroidModules.module
+    #   ] ++ nixpkgs.lib.mapAttrsToList (n: v: v) self.nixOnDroidProfiles;
+
+    #   # list of extra special args for Nix-on-Droid modules
+    #   extraSpecialArgs = {
+    #     rootPath = ./.;
+    #     user = "sam";
+    #     inherit inputs self;
+    #   };
+
+    #   # set path to home-manager flake
+    #   home-manager-path = home-manager.outPath;
+    # };
   };
 
   nixConfig = {

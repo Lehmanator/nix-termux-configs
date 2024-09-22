@@ -1,4 +1,4 @@
-{ inputs, rootPath, ... }:
+{ inputs, ... }:
 { config, lib, pkgs, ... }:
 {
   programs.zsh = {
@@ -10,7 +10,7 @@
     autosuggestion = {
       enable = true;
       highlight = "fg=#ff00ff,bg=cyan,bold,underline";
-      strategy = ["match_prev_cmd" "completion"];
+      # strategy = ["match_prev_cmd" "completion"];  # Avail: 24.11
     };
     cdpath = [];
     defaultKeymap = "viins";
@@ -24,7 +24,7 @@
     # envExtra = ''
     # '';
     history = {
-      append = true;
+      # append = true;  ## Avail: 24.11
       extended = true;
       ignoreDups = true;
       ignorePatterns = [ "rm *" "pkill *" ];

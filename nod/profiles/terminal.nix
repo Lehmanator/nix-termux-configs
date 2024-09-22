@@ -1,4 +1,5 @@
-{ inputs, config, lib, pkgs, ... }:
+{ inputs, ... }:
+{ config, lib, pkgs, ... }:
 {
   environment.motd = ''
     Welcome to Nix-on-Droid!
