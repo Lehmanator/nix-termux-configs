@@ -2,7 +2,8 @@
 { config, lib, pkgs, ... }:
 {
   home = {
-    username = "sam";
+    # username = "sam";
+    username = "nix-on-droid";
     stateVersion = "23.11";
     sessionPath = [
       "$HOME/.local/bin"

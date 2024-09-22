@@ -13,7 +13,8 @@
     sharedModules = (lib.mapAttrsToList (pn: pv: pv) inputs.self.homeProfiles) ++ [
       inputs.sops-nix.homeManagerModules.sops
       { home = {
-          username = lib.mkForce "sam";
+          # username = lib.mkForce "sam";
+          username = lib.mkForce "nix-on-droid";
           homeDirectory = "/data/data/com.termux.nix/files/home";
         };
       }
