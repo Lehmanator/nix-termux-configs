@@ -1,3 +1,4 @@
+{ inputs, rootPath, ... }:
 { config, lib, pkgs, ... }: {
   editorconfig = {
     enable = true;
@@ -14,4 +15,3 @@
     };
   };
 }
-                 8                                                                            

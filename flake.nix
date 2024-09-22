@@ -30,6 +30,7 @@
       src = ./hm/profiles;
       inputs = {
         inherit inputs;
+        rootPath = ./.;
       };
     };
     homeConfigurations = {

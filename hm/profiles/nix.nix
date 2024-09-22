@@ -1,7 +1,5 @@
-{ inputs
-, config, lib, pkgs
-, ...
-}:
+{ inputs, rootPath, ... }:
+{ config, lib, pkgs, ... }:
 {
   nix = {
     package = pkgs.lix;

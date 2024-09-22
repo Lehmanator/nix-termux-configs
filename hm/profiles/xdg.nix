@@ -1,7 +1,5 @@
-{ inputs
-, config, lib, pkgs
-, ...
-}:
+{ inputs, rootPath, ... }:
+{ config, lib, pkgs, ... }:
 {
   home.preferXdgDirectories = true;
   programs.gpg.homedir = "${config.xdg.dataHome}/gnupg";

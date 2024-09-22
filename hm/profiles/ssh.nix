@@ -1,7 +1,5 @@
-{ inputs
-, config, lib, pkgs
-, ...
-}:
+{ inputs, rootPath, ... }:
+{ config, lib, pkgs, ... }:
 {
   programs.ssh = {
     enable = true;
