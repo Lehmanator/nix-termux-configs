@@ -14,10 +14,16 @@
       ch = "checkout";
       cl = "clone";
       f = "fetch";
-      l = "log";
+      l = "log --oneline --stat --graph";
       p = "push";
       rb = "rebase";
       s = "status";
+    };
+    extraConfig = {
+      init.defaultBranch = true;
+      pull.rebase = true;
+      push.autoSetupRemote = true;
+      status.submoduleSummary = true;
     };
   };
   programs.gh = {
