@@ -19,7 +19,7 @@
       vids  = "$HOME/storage/shared/Videos";
       dl    = "$HOME/storage/shared/Downloads";
     };
-    dotDir = config.xdg.configHome + "/zsh";
+    dotDir = ".config/zsh";  # Relative to $HOME
     # Extra commands that should be added to .zshenv.
     # envExtra = ''
     # '';
