@@ -47,13 +47,21 @@
     enable = true;
     settings = {};
   };
-  programs.lazygit.enable = true;
-  home.sessionVariables.GIT_EDITOR = config.home.sessionVariables.EDITOR;
-  home.shellAliases.g = "git";
-  programs.zsh.zsh-abbr.abbreviations.g = "git";
 
+  # https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+  programs.lazygit.enable = true;
+
+  # --- Shell Aliases ----------------------------
+  programs.nushell.shellAliases.g = "git";
   # programs.zsh.shellGlobalAliases.g = "git";
   # programs.zsh.shellAliases.g = "git";
-  # programs.nushell.shellAliases.g = "git";
+  programs.zsh.zsh-abbr.abbreviations.g = "git";
+
+
+  home = {
+    sessionVariables.GIT_EDITOR = config.home.sessionVariables.EDITOR;
+    shellAliases.g = "git";
+  };
+
   
 }
