@@ -33,7 +33,6 @@
   home.shellAliases = rec {
     nos = "nix-on-droid switch --flake ~/.config/nix-on-droid";
     nup = "nix flake update";
-    up = "nix flake update --commit-lock-file && ${nos}";
     flake = "nix flake";
     show = "nix flake show";
     n = "nom";
