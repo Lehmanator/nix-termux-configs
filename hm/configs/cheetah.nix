@@ -9,5 +9,6 @@
     username = "nix-on-droid";
     stateVersion = "23.11";
     packages = [];
+    shellAliases.up = "cd ~/.config/nix-on-droid && nix flake update --commit-lock-file && nix-on-droid switch --flake .#cheetah && git push && cd -";
   };
 }
