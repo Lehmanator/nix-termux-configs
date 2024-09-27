@@ -54,7 +54,10 @@
     shellGlobalAliases = {
     };
     syntaxHighlighting.enable = true;
-    zprof.enable = true;
+
+    # NOTE: Enables shell profiling. Only should enable when needed.
+    zprof.enable = false;
+
     zsh-abbr = { 
       enable = true;
       abbreviations = {
