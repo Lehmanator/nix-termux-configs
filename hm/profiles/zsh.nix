@@ -44,7 +44,9 @@
       searchUpKey   = [  "^[[A"];  # $terminfo[kcuu1]
     };
     # Extra commands that should be added to .zshrc.
-    # initExtra = '''';
+    initExtra = ''
+      fastfetch  
+    '';
     # Extra commands that should be added to .zshrc before compinit.
     # initExtraBeforeCompInit = '''';
     # Commands that should be added to top of .zshrc.
