@@ -11,4 +11,7 @@
     foreground = "#FFFFFF";
     cursor = "#FFFFFF";
   };
+
+  # Variants: {,Mono,Propo}-{Bold,Light,Medium,Regular,Retina,SemiBold}
+  terminal.font = "${pkgs.fira-code-nerdfont}/share/fonts/truetype/NerdFonts/FiraCodeNerdFont-Retina.ttf";
 }
