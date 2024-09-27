@@ -11,23 +11,24 @@
   };
   environment.packages = with pkgs; [
     vim
-    #procps
+    procps
     #killall
-    #diffutils
-    #findutils
+    diffutils
+    findutils
     #utillinux
     #tzdata
     #hostname
-    #man
+    man
     #gnugrep
     #gnupg
-    #gnused
+    gnused
     #gnutar
     #bzip2
     #gzip
     #xz
     #zip
     #unzip
+    uutils-coreutils-noprefix
   ];
   environment.etcBackupExtension = ".bak";
   environment.motd = ''
