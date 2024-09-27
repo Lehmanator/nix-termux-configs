@@ -1,6 +1,10 @@
 { inputs, ... }:
 { config, lib, pkgs, ... }:
 {
+  # home.sessionVariables.SHELL = config.programs.zsh.package + /bin/zsh;
+  # home.sessionVariables.SHELL =  "${config.home.homeDirectory}/.nix-profile/bin/zsh";
+  home.sessionVariables.SHELL = lib.getExe config.programs.zsh.package;
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;

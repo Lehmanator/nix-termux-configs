@@ -4,11 +4,8 @@
   # https://nix-community.github.io/nix-on-droid/nix-on-droid-options.html
   # build.extraProotOptions = [ ];
   system.stateVersion = "23.11";
-  user = {
-    shell = "${pkgs.zsh}/bin/zsh";
-    # userName = "sam";
-    # group = "users";
-  };
+  user.shell = "${pkgs.zsh}/bin/zsh";
+  environment.sessionVariables.SHELL = config.user.shell;
   environment.packages = with pkgs; [
     vim
     procps
