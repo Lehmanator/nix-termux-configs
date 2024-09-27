@@ -24,6 +24,7 @@
       e = "$EDITOR"; v = "$VISUAL";
       ff = "ffmpeg";
       o = "open";
+      h = "cd ~";
 
       # --- Directories ---
       l = "eza --icons";
